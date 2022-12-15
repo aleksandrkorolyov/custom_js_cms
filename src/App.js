@@ -6,8 +6,9 @@ import Registration from './componenets/Registration/Registratoin';
 
 function App() {
   return (
-    <div className="wrapper">
-      <h2>Custom CMS</h2>
+    <div className="pt-5 p-10">
+      <meta name="referrer" content="no-referrer" />
+      <h2 className='text-3xl font-bold underline p-5'>Custom CMS</h2>
       <BrowserRouter>
         <Routes>
           <Route path='/cusers' element={<Users/>}/>
