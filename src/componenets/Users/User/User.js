@@ -31,7 +31,7 @@ const User = (user) => {
                 {user.value.role}
             </td>
             <td className="p-2">
-                <a href = {`/user/${user.value._id}/edit`}>Edit</a>
+                <a href = {`/cuser/${user.value._id}/edit`}>Edit</a>
             </td>
             <td className="p-2">
                 <a href='#' onClick={deleteUser}>Delete</a>

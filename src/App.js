@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Users from './componenets/Users/Users';
 import './App.css';
 import Registration from './componenets/Registration/Registratoin';
+import Edit from './componenets/Users/EditUser/EditUser';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/cusers' element={<Users/>}/>
           <Route path='/cregistration' element={<Registration/>}/>
+          <Route path='/cuser/:id/edit' element={<Edit/>}/>
         </Routes>
       </BrowserRouter>
     </div>
