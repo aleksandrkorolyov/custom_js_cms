@@ -1,17 +1,42 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserForm from "../../Form/UserForm";
 
 const Edit = () => {
 
-    const search = useLocation().search;
-    const id = new URLSearchParams(search).get("id")
+    const [user, setUser] = useState({})
+    const {id} = useParams();
 
-    console.log(id);
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        fetch(`http://localhost:4001/user/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }})
+        .then(async data => {
+        setUser(await data.json());
+        })}, [])
+
+        async function updateHandler(creds) {
+
+            return fetch(`http://localhost:4001/user/${id}/edit`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(creds)
+            })
+            .then(data => {
+                data.json();
+                navigate('/cusers');}
+                )
+        }
     return (
         <>
-
+            <h2 className="pb-3">Change user's data</h2>
+            <UserForm registerHandler={updateHandler} await user={user}/>
         </>
     )
 }
