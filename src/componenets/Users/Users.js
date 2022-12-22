@@ -15,7 +15,7 @@ const Users = () => {
     }, []);
 
         const usersList = users.map((user, index) => <User key={index} value={user}/>)
-        
+
     return (
         <div className="usersWrapper">
             <h2>Users</h2>

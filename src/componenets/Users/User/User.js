@@ -1,16 +1,12 @@
 import { data } from "autoprefixer";
 import React from "react";
+import UserService from "../../../services/UserService";
 
 const User = (user) => {
 
     const deleteUser = (userId) => {
-        console.log(user.value._id);
-        fetch(`http://localhost:4001/user/${user.value._id}/delete`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
+        UserService.deleteUser(user.value._id)
+        .then(() => {
             window.location.reload();
         })
     }

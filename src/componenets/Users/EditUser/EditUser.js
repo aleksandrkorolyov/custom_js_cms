@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import UserService from "../../../services/UserService";
 import UserForm from "../../Form/UserForm";
 
 const Edit = () => {
@@ -10,24 +11,22 @@ const Edit = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`http://localhost:4001/user/${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }})
+        UserService.getUser(id)
         .then(async data => {
         setUser(await data.json());
         })}, [])
 
         async function updateHandler(creds) {
 
-            return fetch(`http://localhost:4001/user/${id}/edit`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(creds)
-            })
+            // return fetch(`http://localhost:4001/user/${id}/edit`, {
+            //     method: 'PUT',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(creds)
+            // })
+
+            return UserService.changeUser(id, creds)
             .then(data => {
                 data.json();
                 navigate('/cusers');}
