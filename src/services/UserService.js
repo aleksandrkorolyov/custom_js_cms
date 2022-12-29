@@ -24,6 +24,15 @@ const UserService = {
         )
     )
     },
+    getUsersBatch: function(current_page, count) {
+        return (
+            fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }})
+        )
+    },
     getUser: function(id) {
         return(
         fetch(BACKEND_PATH + `/user/${id}`, {
