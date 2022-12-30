@@ -1,41 +1,64 @@
 import React, { useEffect, useState } from "react";
 import UserService from "../../services/UserService";
-import User from "./User/User";
+import Pagination from "../Pagination/UserPagination/UserPagination";
 
 const Users = () => {
 
-    const[users, setUsers] = useState([])
+    //Unhardcode entities per page
+    const pageNumberLimit = 3;
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [maxPageLimit, setMaxPageLimit] = useState(5);
+    const [minPageLimit, setMinPageLimit] = useState(0);
 
     useEffect(() => {
-        UserService.getAllUsers()
+        UserService.getUsersBatch(currentPage, pageNumberLimit)
            .then( async response => {
             const data = await response.json()
-            setUsers(data)
+            setUsers(data);
+            setLoading(false);
            })
-    }, []);
+    }, [currentPage]);
 
-        const usersList = users.map((user, index) => <User key={index} value={user}/>)
+    const onPageChange= (pageNumber)=>{
+        setCurrentPage(pageNumber);
+      }
+    
+      const onPrevClick = ()=>{
+          if((currentPage-1) % pageNumberLimit === 0){
+              setMaxPageLimit(maxPageLimit - pageNumberLimit);
+              setMinPageLimit(minPageLimit - pageNumberLimit);
+          }
+          setCurrentPage(prev=> prev-1);
+       }
+      
+      const onNextClick = ()=>{
+           if(currentPage+1 > maxPageLimit){
+               setMaxPageLimit(maxPageLimit + pageNumberLimit);
+               setMinPageLimit(minPageLimit + pageNumberLimit);
+           }
+           setCurrentPage(prev=>prev+1);
+        }
+
+    const paginationAttributes = {
+        currentPage,
+        maxPageLimit,
+        minPageLimit,
+        response: users,
+    }
 
     return (
-        <div className="usersWrapper">
-            <h2>Users</h2>
-            <table className="btable-auto">
-            <thead className="bg-slate-200">
-                <tr>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>E-mail</th>
-                    <th>Role</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-                <tbody>
-                    {usersList}
-                </tbody>
-            </table>
-
-        </div>
+        <>
+        {!loading ? <Pagination {...paginationAttributes}
+                                onPrevClick={onPrevClick}
+                                onNextClick={onNextClick}
+                                onPageChange={onPageChange}
+        />
+        : <div>Loading... </div>
+        }
+        
+        </>
     )
 }
 
