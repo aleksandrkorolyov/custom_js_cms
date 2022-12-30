@@ -5,15 +5,18 @@ import Pagination from "../Pagination/UserPagination/UserPagination";
 const Users = () => {
 
     //Unhardcode entities per page
-    const pageNumberLimit = 3;
+    const pageNumberLimit = 5;
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [maxPageLimit, setMaxPageLimit] = useState(5);
     const [minPageLimit, setMinPageLimit] = useState(0);
 
+    const [sortField, setSortField] = useState();
+    const [sortDirect, setSortDirect] = useState();
+
     useEffect(() => {
-        UserService.getUsersBatch(currentPage, pageNumberLimit)
+        UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
            .then( async response => {
             const data = await response.json()
             setUsers(data);

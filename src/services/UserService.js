@@ -24,9 +24,9 @@ const UserService = {
         )
     )
     },
-    getUsersBatch: function(current_page, count) {
+    getUsersBatch: function(current_page, count, sort_field, sort_direct) {
         return (
-            fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}`, {
+            fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}&sort_field=${sort_field}&sort_direct=${sort_direct}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
