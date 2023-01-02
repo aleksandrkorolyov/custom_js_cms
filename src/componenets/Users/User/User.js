@@ -26,10 +26,10 @@ const User = (user) => {
             <td className="p-2">
                 {user.value.role}
             </td>
-            <td className="p-2">
+            <td className="p-2 editButton">
                 <a href = {`/cuser/${user.value._id}/edit`}>Edit</a>
             </td>
-            <td className="p-2">
+            <td className="p-2 deleteButton">
                 <a href='#' onClick={deleteUser}>Delete</a>
             </td>
         </tr>

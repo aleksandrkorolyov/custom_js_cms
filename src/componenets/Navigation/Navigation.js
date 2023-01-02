@@ -1,32 +1,14 @@
-import React from 'react';
-import {
-Nav,
-NavLink,
-Bars,
-NavMenu,
-NavBtn,
-NavBtnLink,
-} from './NavbarElements';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
-return (
-	<>
-	<Nav>
-		<Bars />
-		<NavMenu>
-            <NavLink to='/' activeStyle>
-                Home
-            </NavLink>
-            <NavLink to='/cregistration' activeStyle>
-                Register
-            </NavLink>
-            <NavLink to='/cusers' activeStyle>
-                Users
-            </NavLink>		
-		</NavMenu>
-	</Nav>
-	</>
-);
-};
-
-export default Navbar;
+export function Navigation() {
+    return (
+        <nav className="h-[50px] flex justify-between px-5 bg-gray-500 items-center text-white shadow-md">
+            <h3 className="font-bold ">Custom CMS</h3>
+            <span>
+                <Link className="mr-2 p-4 hover:bg-orange-600" to="/cusers">Users</Link>
+                <Link className="mr-2 p-4 hover:bg-orange-600" to="/cregistration">Registration</Link>
+            </span>
+        </nav>
+    )
+}
