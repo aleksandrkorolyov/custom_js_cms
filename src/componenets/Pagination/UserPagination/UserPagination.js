@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import UserService from "../../../services/UserService";
 import User from "../../Users/User/User";
 import './UserPagination.css'
 
@@ -73,8 +72,6 @@ const Pagination = (props) => {
         if(minPageLimit >=1){
             pageDecremenEllipses = <li onClick={handlePrevClick}>&hellip;</li> 
         }
-
-        const arrow_down = '&#174;';
 
     return(
         <div className="usersWrapper">

@@ -15,7 +15,7 @@ const Users = () => {
     const [sortField, setSortField] = useState();
     const [sortDirect, setSortDirect] = useState(1);
 
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
@@ -24,7 +24,27 @@ const Users = () => {
             setUsers(data);
             setLoading(false);
            })
-    }, [currentPage, sortField, sortDirect, search]);
+    }, [currentPage, sortField, sortDirect]);
+
+    useEffect(() => {
+        if(search !== '') {
+            setLoading(true);
+            UserService.searchUser(search)
+            .then( async response => {
+                const data = await response.json()
+                setUsers(data);
+                setLoading(false);
+            })
+        } else {
+            setLoading(true);
+            UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
+            .then( async response => {
+                const data = await response.json()
+                setUsers(data);
+                setLoading(false);
+            })
+        }
+    }, [search]);
 
     const changeSortDirection = () => {
         setSortDirect(Number(sortDirect) * -1)
@@ -63,7 +83,7 @@ const Users = () => {
              <div className="relative w-[560px]">
                 <input type="text"
                 className="border py-2 px-4 w-full h-[42px] mb-2"
-                placeholder="Search..."
+                placeholder="Search by first name..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 />
