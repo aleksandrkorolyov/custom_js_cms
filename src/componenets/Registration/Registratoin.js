@@ -17,8 +17,8 @@ const Registration = () => {
     }
 
     return(
-        <div className="usersWrapper">
-            <h2>Create new user</h2>
+        <div className="usersWrapper pt-5">
+            <h1>Create new user</h1>
             <UserForm registerHandler={registerUser}/>
         </div>
     )

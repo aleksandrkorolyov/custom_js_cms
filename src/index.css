@@ -12,6 +12,23 @@ code {
     monospace;
 }
 
+.usersWrapper tr th {
+  text-align: left;
+  min-width: 220px;
+}
+.usersWrapper tr th a:hover {
+  --tw-bg-opacity: 1;
+    background-color: rgb(234 88 12 / var(--tw-bg-opacity));
+}
+
+.usersWrapper .editButton :hover {
+  color: rgb(255 179 7 );
+}
+
+.usersWrapper .deleteButton :hover {
+  color: rgb(250 4 4 );
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -12,6 +12,7 @@ const UserService = {
         })
         )
     },
+
     getAllUsers: function() {
         return(
         fetch(BACKEND_PATH + '/users', {
@@ -24,9 +25,20 @@ const UserService = {
         )
     )
     },
-    getUsersBatch: function(current_page, count) {
+    searchUser: function(search_name) {
+        return(
+            fetch(BACKEND_PATH + `/user_search?search_name=` + search_name, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Referrer-Policy': 'no-referrer'
+                },
+              })
+        )
+    },
+    getUsersBatch: function(current_page, count, sort_field, sort_direct) {
         return (
-            fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}`, {
+            fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}&sort_field=${sort_field}&sort_direct=${sort_direct}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import UserService from "../../../services/UserService";
 import User from "../../Users/User/User";
 import './UserPagination.css'
 
@@ -13,9 +12,10 @@ const renderUsers = (users) => {
 
 const Pagination = (props) => {
 
-    const {currentPage, maxPageLimit, minPageLimit} = props;
+    const {currentPage, maxPageLimit, minPageLimit, sortField} = props;
     const totalPages = props.response.totalPages;
     const users = props.response.user;
+    const sortDirect = props.sortDirect;
     
 
     const pages = [];
@@ -33,6 +33,19 @@ const Pagination = (props) => {
 
     const handlePageClick = (e)=>{
         props.onPageChange(Number(e.target.id));
+    }
+
+    const changeSortField = (field_name)=>{
+        props.changeSortField(field_name);
+    }
+
+    const changeSortDirection = ()=>{
+        props.changeSortDirection();
+    }
+
+    const handleSort = (event) => {
+        changeSortField(event.target.id);
+        changeSortDirection();
     }
 
     const pageNumbers = pages.map(page => {
@@ -66,10 +79,14 @@ const Pagination = (props) => {
         <table className="btable-auto">
         <thead className="bg-slate-200">
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>E-mail</th>
-                <th>Role</th>
+                <th><a href="#" id="first_name" onClick={(e) => handleSort(e)}>First name</a>
+                {sortField == 'first_name' && '(sorted)'}</th>
+                <th><a href="#" id="last_name" onClick={(e) => handleSort(e)}>Last name</a>
+                {sortField == 'last_name' && '(sorted)'}</th>
+                <th><a href="#" id="email" onClick={(e) => handleSort(e)}>E-mail</a>
+                {sortField == 'email' && '(sorted)'}</th>
+                <th><a href="#" id="role" onClick={(e) => handleSort(e)}>Role</a>
+                {sortField == 'role' && '(sorted)'}</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
