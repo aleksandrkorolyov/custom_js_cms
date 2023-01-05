@@ -28,6 +28,9 @@ const Users = () => {
 
     useEffect(() => {
         if(search !== '') {
+
+        const requestUsers = setTimeout(() => {
+
             setLoading(true);
             UserService.searchUser(search)
             .then( async response => {
@@ -35,6 +38,10 @@ const Users = () => {
                 setUsers(data);
                 setLoading(false);
             })
+        }, 1000);
+
+        return () => clearTimeout(requestUsers);
+        
         } else {
             setLoading(true);
             UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
