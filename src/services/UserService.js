@@ -53,7 +53,16 @@ const UserService = {
                 'Content-Type': 'application/json'
             }}
         ))
-
+    },
+    getUserbyEmail: function(email) {
+        return(
+            fetch(BACKEND_PATH + `/search_user_by_mail?email=` + email, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }}
+            )
+        )
     },
     changeUser: function(id, creds) {
         return(
