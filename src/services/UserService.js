@@ -4,12 +4,24 @@ const UserService = {
 
         return(
             fetch(BACKEND_PATH + '/user/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(creds)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(creds)
         })
+        )
+    },
+
+    loginUser: function(creds) {
+        return(
+            fetch(BACKEND_PATH + '/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(creds)
+            })
         )
     },
 
