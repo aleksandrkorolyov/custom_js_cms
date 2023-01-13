@@ -7,22 +7,30 @@ import Edit from './componenets/Users/EditUser/EditUser';
 import { Navigation } from './componenets/Navigation/Navigation';
 import Login from './componenets/Login/Login';
 import useToken from './componenets/App/useToken';
+import Home from './componenets/Home/Home';
+import Logout from './componenets/Logout/Logout';
 
 function App() {
 
-  const [token, setToken] = useToken();
+  const {token, removeToken, setToken} = useToken();
 
-  return (
+   return (
     <div className="pt-5 p-10">
       <meta name="referrer" content="no-referrer" />
       <BrowserRouter>
-      <Navigation/>
+      <Navigation value={token}/>
         <Routes>
-          <Route path='/clogin' element={<Login setToken={setToken} />} />
+          {!token && 
+            <Route path='/clogin' element={<Login setToken={setToken} />} />
+          }
+          <Route path='/' element={<Home/>}/>
           <Route path='/cusers' element={<Users/>}/>
           <Route path='/cregistration' element={<Registration/>}/>
           <Route path='/cuser/:id/edit' element={<Edit/>}/>
-        </Routes>
+          {/* {token !== null && */}
+          <Route path='/logout' element={<Logout token={token} removeToken={removeToken}/>}/>
+          {/* } */}
+          </Routes>
       </BrowserRouter>
     </div>
   );

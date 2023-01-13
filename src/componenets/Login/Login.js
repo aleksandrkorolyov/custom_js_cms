@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserService from "../../services/UserService";
 // import { PropTypes } from "prop-types";
 
@@ -11,16 +12,19 @@ async function loginUser(creds) {
 }
 
 const Login = ({setToken}) => {
-    const [username, setUserName] = useState();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
         const user = await loginUser({
-            email: username,
+            email,
             password
         });
         setToken(user.token);
+        navigate('/');
     }
 
     return(
@@ -29,7 +33,7 @@ const Login = ({setToken}) => {
             <form  className="p-5 border-2" onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
+                    <input type="text" onChange={e => setEmail(e.target.value)} />
                 </label>
                 <label>
                     <p>Password</p>
