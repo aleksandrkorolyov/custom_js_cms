@@ -28,7 +28,7 @@ function App() {
           <Route path='/cregistration' element={<Registration/>}/>
           <Route path='/cuser/:id/edit' element={<Edit/>}/>
           {/* {token !== null && */}
-          <Route path='/logout' element={<Logout token={token} removeToken={removeToken}/>}/>
+          <Route path='/logout' element={<Logout token={token} removeToken={removeToken} setToken={setToken}/>}/>
           {/* } */}
           </Routes>
       </BrowserRouter>
