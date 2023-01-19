@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserService from "../../../services/UserService";
 import UserForm from "../../Form/UserForm";
 
-const Edit = () => {
+const Edit = (token) => {
 
     const [user, setUser] = useState({})
     const {id} = useParams();
@@ -16,17 +16,11 @@ const Edit = () => {
         setUser(await data.json());
         })}, [])
 
+        const jwt = token.token;
+
         async function updateHandler(creds) {
 
-            // return fetch(`http://localhost:4001/user/${id}/edit`, {
-            //     method: 'PUT',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(creds)
-            // })
-
-            return UserService.changeUser(id, creds)
+            return UserService.changeUser(id, creds, jwt)
             .then(data => {
                 data.json();
                 navigate('/cusers');}

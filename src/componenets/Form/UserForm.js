@@ -4,6 +4,7 @@ import UserService from "../../services/UserService";
 
 const UserForm = (props) => {
 
+    const jwt = props.token;
     const formHandler = props.registerHandler    
 
     function saveUser (event) {
@@ -13,7 +14,8 @@ const UserForm = (props) => {
             last_name: lastName,
             role,
             email: email,
-            password
+            password,
+            jwt
     })}
 
     const isEmail = (email) => {

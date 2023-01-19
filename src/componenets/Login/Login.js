@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import UserService from "../../services/UserService";
-// import { PropTypes } from "prop-types";
 
 import "./Login.css";
 
@@ -15,8 +13,6 @@ const Login = ({setToken}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const navigate = useNavigate();
-
     const handleSubmit = async e => {
         e.preventDefault();
         const user = await loginUser({
@@ -24,7 +20,6 @@ const Login = ({setToken}) => {
             password
         });
         setToken(user.token);
-        navigate('/');
     }
 
     return(
@@ -45,11 +40,6 @@ const Login = ({setToken}) => {
             </form>
         </div>
     )
-
 }
 
 export default Login
-
-// Login.ReactPropTypes = {
-//     setToken: PropTypes.func.isRequred
-// }

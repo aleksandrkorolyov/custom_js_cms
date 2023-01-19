@@ -1,4 +1,5 @@
 const BACKEND_PATH = process.env.REACT_APP_BACKEND_PATH
+
 const UserService = {
     createUser: function(creds) {
 
@@ -6,7 +7,8 @@ const UserService = {
             fetch(BACKEND_PATH + '/user/add', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': creds.jwt
                 },
                 body: JSON.stringify(creds)
         })
@@ -76,22 +78,34 @@ const UserService = {
             )
         )
     },
-    changeUser: function(id, creds) {
+    getUserRole: function(token) {
+        return(
+            fetch(BACKEND_PATH + `/get_user_role?token=${token}` ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+        )
+    },
+    changeUser: function(id, creds, jwt) {
         return(
         fetch(BACKEND_PATH + `/user/${id}/edit`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': jwt
                 },
                 body: JSON.stringify(creds)
             })
     )},
-    deleteUser: function(user) {
+    deleteUser: function(user,token) {
         return(
         fetch(BACKEND_PATH + `/user/${user}/delete`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': token
             }
         })
     )}

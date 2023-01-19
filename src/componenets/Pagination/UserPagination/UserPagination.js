@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
+import UserService from "../../../services/UserService";
 import User from "../../Users/User/User";
 import './UserPagination.css'
 
-const renderUsers = (users) => {
+const renderUsers = (users, token, isAdmin) => {
     return(
         <>
-            {users.map((user, index) => <User key={index} value={user}/>)}
+            {users.map((user, index) => <User key={index} value={user} token={token} isAdmin={isAdmin}/>)}
         </>
     )
 }
 
 const Pagination = (props) => {
 
+    const [isAdmin,setIsAdmin] = useState();
+
     const {currentPage, maxPageLimit, minPageLimit, sortField} = props;
     const totalPages = props.response.totalPages;
     const users = props.response.user;
     const sortDirect = props.sortDirect;
     
+    const token = props.jwt;
 
     const pages = [];
     for(let i=1 ; i<=totalPages; i++){
@@ -73,6 +77,12 @@ const Pagination = (props) => {
             pageDecremenEllipses = <li onClick={handlePrevClick}>&hellip;</li> 
         }
 
+        UserService.getUserRole(token)
+        .then(async response => { 
+            const data = await response.json();
+        setIsAdmin(data.isAdmin);
+        })
+
     return(
         <div className="usersWrapper">
         <h2>Users</h2>
@@ -92,7 +102,7 @@ const Pagination = (props) => {
             </tr>
         </thead>
             <tbody>
-                {renderUsers(users)}
+                {renderUsers(users, token, isAdmin)}
             </tbody>
         </table>
 

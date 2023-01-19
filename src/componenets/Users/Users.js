@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import UserService from "../../services/UserService";
 import Pagination from "../Pagination/UserPagination/UserPagination";
 
-const Users = () => {
-
+const Users = (token) => {
     //Unhardcode entities per page
-    const pageNumberLimit = 5;
+    const pageNumberLimit = 10;
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +15,8 @@ const Users = () => {
     const [sortDirect, setSortDirect] = useState(1);
 
     const [search, setSearch] = useState('');
+
+    const jwt = token.token
 
     useEffect(() => {
         UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
@@ -83,6 +84,7 @@ const Users = () => {
         minPageLimit,
         sortField,
         response: users,
+        jwt,
     }
 
     return (

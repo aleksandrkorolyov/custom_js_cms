@@ -14,23 +14,22 @@ function App() {
 
   const {token, removeToken, setToken} = useToken();
 
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
+
    return (
     <div className="pt-5 p-10">
       <meta name="referrer" content="no-referrer" />
       <BrowserRouter>
       <Navigation value={token}/>
         <Routes>
-          {!token && 
-            <Route path='/clogin' element={<Login setToken={setToken} />} />
-          }
-          <Route path='/' element={<Home/>}/>
-          <Route path='/cusers' element={<Users/>}/>
-          <Route path='/cregistration' element={<Registration/>}/>
-          <Route path='/cuser/:id/edit' element={<Edit/>}/>
-          {/* {token !== null && */}
-          <Route path='/logout' element={<Logout token={token} removeToken={removeToken} setToken={setToken}/>}/>
-          {/* } */}
-          </Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/cusers' element={<Users token={token}/>}/>
+            <Route path='/cregistration' element={<Registration token={token}/>}/>
+            <Route path='/cuser/:id/edit' element={<Edit token={token}/>}/>
+            <Route path='/logout' element={<Logout token={token} removeToken={removeToken} setToken={setToken}/>}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );
