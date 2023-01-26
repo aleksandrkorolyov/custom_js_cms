@@ -72,7 +72,7 @@ const UserForm = (props) => {
     
     return (
         <div className="register-wrapper pt-5">
-        <form  className="max-w-md">
+        <form  className="max-w-md user-form">
         <div className="border-2 h-24 bg-slate-100">
             <label >
                 <p>First name</p>

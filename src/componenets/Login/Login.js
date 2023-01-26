@@ -23,7 +23,7 @@ const Login = ({setToken}) => {
     }
 
     return(
-        <div className="login-wrapper">
+        <div className="flex items-center justify-center login-wrapper pt-10">
             <h1>Please Log In</h1>
             <form  className="p-5 border-2" onSubmit={handleSubmit}>
                 <label>

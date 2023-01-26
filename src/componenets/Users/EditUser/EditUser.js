@@ -52,10 +52,12 @@ const Edit = (token) => {
             // <div className="">{error.message}</div>)
         }
     return (
-        <>
-            <h2 className="pb-3">Change user's data</h2>
-            <UserForm registerHandler={updateHandler} await user={user}/>
-        </>
+        <div>
+            <h2 className="p-3 flex justify-center">Change user data</h2>
+            <div className="flex items-center justify-center">
+                <UserForm registerHandler={updateHandler} await user={user}/>
+            </div>
+        </div>
     )
 }
 

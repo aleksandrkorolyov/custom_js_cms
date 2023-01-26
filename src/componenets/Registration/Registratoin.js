@@ -18,9 +18,11 @@ const Registration = (token) => {
     }
 
     return(
-        <div className="usersWrapper pt-5">
-            <h1>Create new user</h1>
-            <UserForm registerHandler={registerUser} token={jwt}/>
+        <div>
+            <div className="flex justify-center pt-5">Create new user</div>
+            <div className="flex items-center justify-center h-screen usersWrapper">
+                <UserForm registerHandler={registerUser} token={jwt}/>
+            </div>
         </div>
     )
 }

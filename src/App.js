@@ -9,6 +9,7 @@ import Login from './componenets/Login/Login';
 import useToken from './componenets/App/useToken';
 import Home from './componenets/Home/Home';
 import Logout from './componenets/Logout/Logout';
+import Page404 from './componenets/Page404/Page404';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/cregistration' element={<Registration token={token}/>}/>
             <Route path='/cuser/:id/edit' element={<Edit token={token}/>}/>
             <Route path='/logout' element={<Logout token={token} removeToken={removeToken} setToken={setToken}/>}/>
+            <Route path='*' element={<Page404/>}/>
         </Routes>
       </BrowserRouter>
     </div>

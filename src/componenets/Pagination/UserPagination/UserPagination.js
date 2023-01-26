@@ -86,7 +86,7 @@ const Pagination = (props) => {
     return(
         <div className="usersWrapper">
         <h2>Users</h2>
-        <table className="btable-auto">
+        <table className="btable-auto ">
         <thead className="bg-slate-200">
             <tr>
                 <th><a href="#" id="first_name" onClick={(e) => handleSort(e)}>First name</a>
