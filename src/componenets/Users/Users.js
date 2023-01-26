@@ -16,6 +16,8 @@ const Users = (token) => {
 
     const [search, setSearch] = useState('');
 
+    const [error, setError] = useState();
+
     const jwt = token.token
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const Users = (token) => {
             const data = await response.json()
             setUsers(data);
             setLoading(false);
-           })
+           }).catch(err => setError(err))
     }, [currentPage, sortField, sortDirect]);
 
     useEffect(() => {

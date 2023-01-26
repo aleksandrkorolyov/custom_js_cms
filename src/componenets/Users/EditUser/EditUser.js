@@ -6,15 +6,26 @@ import UserForm from "../../Form/UserForm";
 const Edit = (token) => {
 
     const [user, setUser] = useState({})
+    const [error,setError] = useState();
     const {id} = useParams();
 
     const navigate = useNavigate()
 
     useEffect(() => {
         UserService.getUser(id)
+        .then(res => {
+         if(!res.ok) {
+            throw Error("Can't connect to server")
+         }
+         return res;
+        })
         .then(async data => {
         setUser(await data.json());
-        })}, [])
+        })
+        .catch((err) => {
+            setError(err);
+        });
+    }, [])
 
         const jwt = token.token;
 
@@ -25,6 +36,20 @@ const Edit = (token) => {
                 data.json();
                 navigate('/cusers');}
                 )
+        }
+
+        if(error) {
+            return(
+                <div role="alert">
+                <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                  Error
+                </div>
+                <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                  <p>{error.message}</p>
+                </div>
+              </div>
+            )
+            // <div className="">{error.message}</div>)
         }
     return (
         <>
