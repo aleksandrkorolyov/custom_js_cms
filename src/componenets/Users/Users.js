@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserService from "../../services/UserService";
+import DataHandler from "../App/dataHandler";
 import Pagination from "../Pagination/UserPagination/UserPagination";
 
 const Users = (token) => {
@@ -20,10 +21,12 @@ const Users = (token) => {
 
     const jwt = token.token
 
-    useEffect(() => {
+    const {handle} = DataHandler();
+
+    useEffect( () => {
         UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
-           .then( async response => {
-            const data = await response.json()
+        .then( async response => {
+            const data = await handle(response);
             setUsers(data);
             setLoading(false);
            }).catch(err => setError(err))

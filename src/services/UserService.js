@@ -15,9 +15,9 @@ const UserService = {
         )
     },
 
-    loginUser: function(creds) {
+    loginUser:  function(creds) {
         return(
-            fetch(BACKEND_PATH + '/user/login', {
+              fetch(BACKEND_PATH + '/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const UserService = {
               })
         )
     },
-    getUsersBatch: function(current_page, count, sort_field, sort_direct) {
+    getUsersBatch: async function(current_page, count, sort_field, sort_direct) {
         return (
             fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}&sort_field=${sort_field}&sort_direct=${sort_direct}`, {
                 method: 'GET',

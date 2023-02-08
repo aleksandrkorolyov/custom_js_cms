@@ -1,6 +1,8 @@
+import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserService from "../../../services/UserService";
+import DataHandler from "../../App/dataHandler";
 import UserForm from "../../Form/UserForm";
 
 const Edit = (token) => {
@@ -11,21 +13,16 @@ const Edit = (token) => {
 
     const navigate = useNavigate()
 
+    const {handle} = DataHandler();
+
     useEffect(() => {
         UserService.getUser(id)
-        .then(res => {
-         if(!res.ok) {
-            throw Error("Can't connect to server")
-         }
-         return res;
-        })
-        .then(async data => {
-        setUser(await data.json());
-        })
-        .catch((err) => {
-            setError(err);
-        });
-    }, [])
+        .then(async response => {
+            const data = await handle(response)
+            if(data){
+                setUser(data);
+            }
+        })}, [])
 
         const jwt = token.token;
 
