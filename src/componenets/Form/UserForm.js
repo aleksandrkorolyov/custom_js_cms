@@ -4,6 +4,7 @@ import UserService from "../../services/UserService";
 
 const UserForm = (props) => {
 
+    const jwt = props.token;
     const formHandler = props.registerHandler    
 
     function saveUser (event) {
@@ -13,7 +14,8 @@ const UserForm = (props) => {
             last_name: lastName,
             role,
             email: email,
-            password
+            password,
+            jwt
     })}
 
     const isEmail = (email) => {
@@ -70,7 +72,7 @@ const UserForm = (props) => {
     
     return (
         <div className="register-wrapper pt-5">
-        <form  className="max-w-md">
+        <form  className="max-w-md user-form">
         <div className="border-2 h-24 bg-slate-100">
             <label >
                 <p>First name</p>
@@ -89,8 +91,11 @@ const UserForm = (props) => {
             <label>
                 <p>Role</p>
             </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" value={role} onChange={e => setRole(e.target.value)} />
-                {!role && <span className="text-red-600">Role is required</span>}
+                <select className="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={role} onChange={e => setRole(e.target.value)}>
+                    <option value='admin'>Admin</option>
+                    <option value='user'>User</option>
+                </select>
         </div>
         <div className="border-2 h-24 bg-slate-100">
             <label>

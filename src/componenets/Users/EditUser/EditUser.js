@@ -1,42 +1,60 @@
+import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserService from "../../../services/UserService";
+import DataHandler from "../../App/dataHandler";
 import UserForm from "../../Form/UserForm";
 
-const Edit = () => {
+const Edit = (token) => {
 
     const [user, setUser] = useState({})
+    const [error,setError] = useState();
     const {id} = useParams();
 
     const navigate = useNavigate()
 
+    const {handle} = DataHandler();
+
     useEffect(() => {
         UserService.getUser(id)
-        .then(async data => {
-        setUser(await data.json());
+        .then(async response => {
+            const data = await handle(response)
+            if(data){
+                setUser(data);
+            }
         })}, [])
+
+        const jwt = token.token;
 
         async function updateHandler(creds) {
 
-            // return fetch(`http://localhost:4001/user/${id}/edit`, {
-            //     method: 'PUT',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(creds)
-            // })
-
-            return UserService.changeUser(id, creds)
+            return UserService.changeUser(id, creds, jwt)
             .then(data => {
                 data.json();
                 navigate('/cusers');}
                 )
         }
+
+        if(error) {
+            return(
+                <div role="alert">
+                <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                  Error
+                </div>
+                <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                  <p>{error.message}</p>
+                </div>
+              </div>
+            )
+            // <div className="">{error.message}</div>)
+        }
     return (
-        <>
-            <h2 className="pb-3">Change user's data</h2>
-            <UserForm registerHandler={updateHandler} await user={user}/>
-        </>
+        <div>
+            <h2 className="p-3 flex justify-center">Change user data</h2>
+            <div className="flex items-center justify-center">
+                <UserForm registerHandler={updateHandler} await user={user}/>
+            </div>
+        </div>
     )
 }
 

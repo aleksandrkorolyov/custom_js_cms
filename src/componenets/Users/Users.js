@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import UserService from "../../services/UserService";
+import DataHandler from "../App/dataHandler";
 import Pagination from "../Pagination/UserPagination/UserPagination";
 
-const Users = () => {
-
+const Users = (token) => {
     //Unhardcode entities per page
-    const pageNumberLimit = 5;
+    const pageNumberLimit = 10;
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,13 +17,19 @@ const Users = () => {
 
     const [search, setSearch] = useState('');
 
-    useEffect(() => {
+    const [error, setError] = useState();
+
+    const jwt = token.token
+
+    const {handle} = DataHandler();
+
+    useEffect( () => {
         UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
-           .then( async response => {
-            const data = await response.json()
+        .then( async response => {
+            const data = await handle(response);
             setUsers(data);
             setLoading(false);
-           })
+           }).catch(err => setError(err))
     }, [currentPage, sortField, sortDirect]);
 
     useEffect(() => {
@@ -83,6 +89,7 @@ const Users = () => {
         minPageLimit,
         sortField,
         response: users,
+        jwt,
     }
 
     return (
