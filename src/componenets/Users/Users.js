@@ -19,12 +19,12 @@ const Users = (token) => {
 
     const [error, setError] = useState();
 
-    const jwt = token.token
-
     const {handle} = DataHandler();
 
+    const jwt = token.token;
+
     useEffect( () => {
-        UserService.getUsersBatch(currentPage, pageNumberLimit, sortField, sortDirect)
+        UserService.getUsersBatch(jwt, currentPage, pageNumberLimit, sortField, sortDirect)
         .then( async response => {
             const data = await handle(response);
             setUsers(data);
@@ -89,7 +89,6 @@ const Users = (token) => {
         minPageLimit,
         sortField,
         response: users,
-        jwt,
     }
 
     return (

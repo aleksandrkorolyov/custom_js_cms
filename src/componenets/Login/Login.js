@@ -25,7 +25,7 @@ const Login = ({setToken}) => {
             password
         });
 
-        const data = await handle(response)
+        const data = await handle(response);
         if(data) {
             setToken(data.token);
             navigate('/');

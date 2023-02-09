@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../../../services/UserService";
+import useToken from "../../App/useToken";
 import User from "../../Users/User/User";
 import './UserPagination.css'
 
@@ -19,8 +20,8 @@ const Pagination = (props) => {
     const totalPages = props.response.totalPages;
     const users = props.response.user;
     const sortDirect = props.sortDirect;
-    
-    const token = props.jwt;
+
+    const { token, removeToken } = useToken();
 
     const pages = [];
     for(let i=1 ; i<=totalPages; i++){
@@ -80,7 +81,7 @@ const Pagination = (props) => {
         UserService.getUserRole(token)
         .then(async response => { 
             const data = await response.json();
-        setIsAdmin(data.isAdmin);
+                setIsAdmin(data.isAdmin);
         })
 
     return(
