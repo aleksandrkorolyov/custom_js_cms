@@ -50,21 +50,24 @@ const UserService = {
               })
         )
     },
-    getUsersBatch: async function(current_page, count, sort_field, sort_direct) {
+    getUsersBatch: async function(token, current_page, count, sort_field, sort_direct) {
         return (
             fetch(BACKEND_PATH + `/users_batch?current_page=${current_page}&count=${count}&sort_field=${sort_field}&sort_direct=${sort_direct}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-access-token': token
+
                 }})
         )
     },
-    getUser: function(id) {
+    getUser: function(token, id) {
         return(
         fetch(BACKEND_PATH + `/user/${id}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': token
             }}
         ))
     },

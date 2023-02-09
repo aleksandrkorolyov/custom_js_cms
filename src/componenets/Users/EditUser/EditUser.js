@@ -15,16 +15,16 @@ const Edit = (token) => {
 
     const {handle} = DataHandler();
 
+    const jwt = token.token;
+
     useEffect(() => {
-        UserService.getUser(id)
+        UserService.getUser(jwt, id)
         .then(async response => {
             const data = await handle(response)
             if(data){
                 setUser(data);
             }
         })}, [])
-
-        const jwt = token.token;
 
         async function updateHandler(creds) {
 

@@ -3,11 +3,13 @@ import React from "react";
 import UserForm from "../Form/UserForm";
 import { useNavigate } from 'react-router-dom';
 import UserService from "../../services/UserService";
+import DataHandler from "../App/dataHandler";
 
 const Registration = (token) => {
 
     const jwt = token.token;
     const navigate = useNavigate();
+    const {handle} = DataHandler();
 
     async function registerUser(creds) {
         return UserService.createUser(creds)
@@ -16,6 +18,11 @@ const Registration = (token) => {
             navigate('/cusers');}
             )
     }
+
+    UserService.getUserRole(jwt)
+    .then(async response => { 
+        const data = await handle(response);
+    })
 
     return(
         <div>

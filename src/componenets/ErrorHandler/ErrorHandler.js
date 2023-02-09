@@ -9,7 +9,6 @@ import Page500 from "../ErrorPage/500";
 const ErrorHandler = () => {
     const location = useLocation();
 
-    console.log(location.state.errorStatusCode)
     switch (location.state) {
         case 401:
           return <Page401 />;
