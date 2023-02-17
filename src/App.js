@@ -27,7 +27,7 @@ function App() {
           <Route path='/login' element={<Login setToken={setToken} />} />
           }
           <Route path={'/error'} element={<ErrorHandler />} />
-          <Route element={<ProtectedRoute token={token} />}>
+          <Route element={<ProtectedRoute />}>
             <Route path='/' element={<Home />} />
             <Route path='/cusers' element={<Users token={token} />} />
             <Route path='/cregistration' element={<Registration token={token} />} />
