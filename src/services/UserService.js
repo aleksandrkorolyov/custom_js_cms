@@ -1,5 +1,7 @@
 const BACKEND_PATH = process.env.REACT_APP_BACKEND_PATH
 
+const axios = require('axios');
+
 const UserService = {
     createUser: function(creds) {
 

@@ -2,6 +2,7 @@ import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import UserService from "../../../services/UserService";
+import AppLayout from "../../App/AppLayout";
 import DataHandler from "../../App/dataHandler";
 import UserForm from "../../Form/UserForm";
 
@@ -46,15 +47,16 @@ const Edit = (token) => {
                 </div>
               </div>
             )
-            // <div className="">{error.message}</div>)
         }
     return (
-        <div>
-            <h2 className="p-3 flex justify-center">Change user data</h2>
-            <div className="flex items-center justify-center">
-                <UserForm registerHandler={updateHandler} await user={user}/>
+        <AppLayout>
+            <div>
+                <h2 className="p-3 flex justify-center">Change user data</h2>
+                <div className="flex items-center justify-center">
+                    <UserForm registerHandler={updateHandler} await user={user}/>
+                </div>
             </div>
-        </div>
+        </AppLayout>
     )
 }
 

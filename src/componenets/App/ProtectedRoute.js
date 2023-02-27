@@ -11,15 +11,15 @@ const ProtectedRoute = () => {
 
     //Set idle timeout for 5 minutes
     const isIdle = useIdle(300000);
-    
-    useEffect( () => {
-        if(isIdle === true) {
+
+    useEffect(() => {
+        if (isIdle === true) {
             removeToken();
             navigate(0)
         }
-    }, [isIdle] );
+    }, [isIdle]);
 
-    return token ? <Outlet/> : <Navigate to={'/login'} replace />;
+    return token ? <Outlet /> : <Navigate to={'/login'} replace />;
 }
 
 export default ProtectedRoute;

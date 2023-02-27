@@ -4,6 +4,7 @@ import UserForm from "../Form/UserForm";
 import { useNavigate } from 'react-router-dom';
 import UserService from "../../services/UserService";
 import DataHandler from "../App/dataHandler";
+import AppLayout from "../App/AppLayout";
 
 const Registration = (token) => {
 
@@ -25,12 +26,14 @@ const Registration = (token) => {
     })
 
     return(
-        <div>
-            <div className="flex justify-center pt-5">Create new user</div>
-            <div className="flex items-center justify-center h-screen usersWrapper">
-                <UserForm registerHandler={registerUser} token={jwt}/>
+        <AppLayout>
+            <div>
+                <div className="flex justify-center pt-5">Create new user</div>
+                <div className="flex items-center justify-center h-screen usersWrapper">
+                    <UserForm registerHandler={registerUser} token={jwt}/>
+                </div>
             </div>
-        </div>
+        </AppLayout>
     )
 }
 
